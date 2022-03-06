@@ -1,0 +1,118 @@
+diff --git a/ch02/ch02_01_drawArrays.diff b/ch02/ch02_01_drawArrays.diff
+index 29b7061..e69de29 100644
+--- a/ch02/ch02_01_drawArrays.diff
++++ b/ch02/ch02_01_drawArrays.diff
+@@ -1,54 +0,0 @@
+-diff --git a/ch02/ch02_01_square.html b/ch02/ch02_01_square.html
+-index 098402e..a97d601 100644
+---- a/ch02/ch02_01_square.html
+-+++ b/ch02/ch02_01_square.html
+-@@ -45,8 +45,7 @@
+-     let gl,
+-       program,
+-       squareVertexBuffer,
+--      squareIndexBuffer,
+--      indices;
+-+      squareIndexBuffer;
+- 
+-     // Given an id, extract the content's of a shader script
+-     // from the DOM and return the compiled shader
+-@@ -121,27 +120,19 @@
+-         -0.5, 0.5, 0,
+-         -0.5, -0.5, 0,
+-         0.5, -0.5, 0,
+--        0.5, 0.5, 0
+-+        -0.5, 0.5, 0,
+-+        0.5, -0.5, 0,
+-+        0.5, 0.5, 0,
+-       ];
+- 
+--      // Indices defined in counter-clockwise order
+--      indices = [0, 1, 2, 0, 2, 3];
+--
+-       // Setting up the VBO
+-       squareVertexBuffer = gl.createBuffer();
+-       gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexBuffer);
+-       // 頂点座標だから Float32Array
+-       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+- 
+--      // Setting up the IBO
+--      squareIndexBuffer = gl.createBuffer();
+--      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, squareIndexBuffer);
+--      // index だから Uint16Array
+--      gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
+--
+-       // Clean
+-       gl.bindBuffer(gl.ARRAY_BUFFER, null);
+--      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+-     }
+- 
+-     // We call draw to render to our canvas
+-@@ -159,7 +150,7 @@
+-       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, squareIndexBuffer);
+- 
+-       // Draw to the scene using triangle primitives
+--      gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
+-+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+- 
+-       // Clean
+-       gl.bindBuffer(gl.ARRAY_BUFFER, null);
+diff --git a/ch02/ch02_01_square.html b/ch02/ch02_01_square.html
+index 098402e..e21f2ad 100644
+--- a/ch02/ch02_01_square.html
++++ b/ch02/ch02_01_square.html
+@@ -44,9 +44,7 @@
+     // across the application
+     let gl,
+       program,
+-      squareVertexBuffer,
+-      squareIndexBuffer,
+-      indices;
++      squareVertexBuffer;
+ 
+     // Given an id, extract the content's of a shader script
+     // from the DOM and return the compiled shader
+@@ -121,27 +119,19 @@
+         -0.5, 0.5, 0,
+         -0.5, -0.5, 0,
+         0.5, -0.5, 0,
+-        0.5, 0.5, 0
++        -0.5, 0.5, 0,
++        0.5, -0.5, 0,
++        0.5, 0.5, 0,
+       ];
+ 
+-      // Indices defined in counter-clockwise order
+-      indices = [0, 1, 2, 0, 2, 3];
+-
+       // Setting up the VBO
+       squareVertexBuffer = gl.createBuffer();
+       gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexBuffer);
+       // 頂点座標だから Float32Array
+       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+ 
+-      // Setting up the IBO
+-      squareIndexBuffer = gl.createBuffer();
+-      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, squareIndexBuffer);
+-      // index だから Uint16Array
+-      gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
+-
+       // Clean
+       gl.bindBuffer(gl.ARRAY_BUFFER, null);
+-      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+     }
+ 
+     // We call draw to render to our canvas
+@@ -155,11 +145,8 @@
+       gl.vertexAttribPointer(program.aVertexPosition, 3, gl.FLOAT, false, 0, 0);
+       gl.enableVertexAttribArray(program.aVertexPosition);
+ 
+-      // Bind IBO
+-      gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, squareIndexBuffer);
+-
+       // Draw to the scene using triangle primitives
+-      gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
++      gl.drawArrays(gl.TRIANGLES, 0, 6);
+ 
+       // Clean
+       gl.bindBuffer(gl.ARRAY_BUFFER, null);
