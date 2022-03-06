@@ -11,8 +11,8 @@
 
   <!-- vertex Shader -->
   <script id="vertex-shader" type="x-shader/x-vertex">
-    #version 300 es
-    precision mediump float;
+    #version 300 es // use GLSL ES 3.0
+    precision mediump float; // float の精度を設定。 lowp = 8bit, medump = 16bit, highp = 24~32bit
 
     // Supplied vertex position attribute
     in vec3 aVertexPosition;
@@ -130,11 +130,13 @@
       // Setting up the VBO
       squareVertexBuffer = gl.createBuffer();
       gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexBuffer);
+      // 頂点座標だから Float32Array
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
 
       // Setting up the IBO
       squareIndexBuffer = gl.createBuffer();
       gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, squareIndexBuffer);
+      // index だから Uint16Array
       gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
 
       // Clean
